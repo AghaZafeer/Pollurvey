@@ -1,0 +1,28 @@
+<div class="a" fxLayout="row">
+  <mat-card class="card" *ngFor="let survey of surveyList">
+    <a (click)=editQuestions(survey)>
+      <div class="draft">{{survey.status}}</div>
+      <div class="image" *ngIf="survey.domain_type == 'Product'">
+        <img
+          mat-card-image
+          src="/assets/pictures/product3.jpg"
+          alt="Product Image"
+        />
+      </div>
+      <div class="image" *ngIf="survey.domain_type == 'Hospital'">
+        <img
+          mat-card-image
+          src="/assets/pictures/Hospital.webp"
+          alt="Hospital Image"
+        />
+      </div>
+      <mat-card-header>
+        <mat-card-title>{{survey.name}}</mat-card-title>
+      </mat-card-header>
+    </a>
+    <mat-card-actions class="icon">
+      <button class="take" mat-raised-button (click)=takeSurvey(survey)> Take survey
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

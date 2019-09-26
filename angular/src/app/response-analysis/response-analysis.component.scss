@@ -1,0 +1,48 @@
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+  
+.questions{
+  
+    height:100%;
+  
+   
+}
+
+.questionCard {
+    transition: 0.1s;
+    // margin: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    height:15%;
+      // padding:0.5cm;
+   
+
+  } 
+  .questionCard:hover {
+    box-shadow: 0 8px 25px 0 rgba(0,0,0,0.8);
+    
+  }
+ 
+  .split-left{
+    padding:0.5cm;
+    float: left;
+  }
+  .chart{
+    width:100%;
+    height:100%;
+    padding:0.5cm;
+    float:right;
+    transition: 0.1s;
+
+  
+  }
+  .flex-container
+  { 
+    height:100%;
+    background: rgb(255,149,149);
+    background: linear-gradient(264deg, rgba(255,149,149,1) 0%, rgba(255,149,149,1) 32%, rgba(33,1,56,1) 100%);
+  }

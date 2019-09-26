@@ -1,0 +1,226 @@
+version: '2.1'
+
+services:
+  eureka-server:
+    build: eureka-server/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    image: eureka-server
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8761:8761
+
+  config-server:
+    build: config-server/
+    restart: always
+    network_mode: "host"
+    image: config-server
+    depends_on:
+      - eureka-server
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8888:8888
+
+  zuul-api:
+    build: zuul-api/
+    depends_on:
+      - config-server
+      - eureka-server
+    restart: always
+    network_mode: "host"
+    image: zuul-api
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8500:8500
+
+  mongo:
+    image: mongo:3.4-jessie
+    ports:
+      - 27017:27017
+    container_name: mongo
+    depends_on:
+      - config-server
+    network_mode: "host"
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    restart: always
+
+  survey-service:
+    build: survey-service/
+    restart: always
+    container_name: survey-service
+    depends_on:
+      - neo4j
+      - config-server
+      - eureka-server
+      - zuul-api
+      - zookeeper
+      - kafka
+    network_mode: "host"
+    image: survey-service
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8090:8090
+
+  user-registration-service:
+    build: user-registration-service/
+    restart: always
+    container_name: user-registration-service
+    depends_on:
+      - mongo
+      - config-server
+      - eureka-server
+      - zuul-api
+      - zookeeper
+      - kafka
+    network_mode: "host"
+    image: user-registration
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8095:8095
+
+  user-response-service:
+    build: user-response-service/
+    container_name: user-response-service
+    depends_on:
+      - mongo
+      - config-server
+      - eureka-server
+      - zuul-api
+      - survey-service
+      - zookeeper
+      - kafka
+    network_mode: "host"
+    image: user-response-service
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8082:8082
+
+  mail-service:
+    build: mail-service/
+    restart: always
+    container_name: mail-service
+    depends_on:
+      - mongo
+      - eureka-server
+      - config-server
+      - zuul-api
+    network_mode: "host"
+    image: mail-service
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8070:8070
+
+  login-authentication-service:
+    build: login-authentication-service/
+    restart: always
+    container_name: login-authentication-service
+    depends_on:
+      - mysql
+      - config-server
+      - eureka-server
+      - zuul-api
+      - zookeeper
+      - kafka
+    network_mode: "host"
+    image: login-authentication-service
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+    ports:
+      - 8085:8085
+
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Surveyor
+      MYSQL_PASSWORD: Root@123
+      MYSQL_USER: harika
+    depends_on:
+      - config-server
+    network_mode: "host"
+    hostname: localhost
+    restart: always
+    healthcheck:
+      test: "exit 0"
+
+  neo4j:
+    image: neo4j:latest
+    restart: always
+    environment:
+      NEO4J_AUTH: neo4j/<Root@123>
+    ports:
+      - 7474:7474
+      - 7687:7687
+    container_name: neo4j
+    depends_on:
+      - config-server
+    network_mode: "host"
+    hostname: localhost
+    healthcheck:
+      test: "exit 0"
+
+  zookeeper:
+    image: wurstmeister/zookeeper
+    restart: always
+    container_name: zookeeper
+    depends_on:
+      - config-server
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 2181:2181
+    healthcheck:
+      test: "exit 0"
+
+  kafka:
+    image: wurstmeister/kafka
+    container_name: kafka
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 9092:9092
+    depends_on:
+      config-server:
+        condition: service_healthy
+      zookeeper:
+        condition: service_healthy
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: 'localhost:2181'
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://localhost:9092
+      KAFKA_CREATE_TOPICS: "UserRegistration"
+    restart: always
+    healthcheck:
+      test: "exit 0"
+
+  angular:
+    build: angular/
+    restart: always
+    network_mode: "host"
+    hostname: localhost
+    ports:
+      - 4200:4200
+    healthcheck:
+      test: "exit 0"
+    image: angular
+    container_name: angular

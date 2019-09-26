@@ -1,0 +1,48 @@
+<div class="flex-container" layout-align="center none">
+    <div class="example-card" fxLayout="column">
+      <mat-card class="hello">
+      <mat-card-header>
+        <mat-card-title>Edit Your Profile</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="example-container">
+            <table>
+                <tr><td>Username</td>
+                <td><label>:{{user?.name}}</label></td></tr>
+              <tr><td>Email Id</td>
+              <td><label>:{{user?.email}}</label></td>
+              </tr>
+              <tr><td>Gender</td>
+                <td><label>:{{user?.gender}}</label></td>
+                </tr>
+                <tr><td>AgeGroup</td>
+                  <td><label>:{{user?.ageGroup}}</label></td>
+                  </tr>
+                  <tr><td>Location</td>
+                    <td><label>:{{user?.location}}</label></td>
+                    </tr>
+    
+          <!-- <h6>Username : {{user?.name}} </h6> 
+          
+          <h6>Email Id:{{user?.email}} </h6>
+          
+          <h6>Age :{{user?.ageGroup}}</h6>
+          
+          <h6>Gender :{{user?.gender}}</h6>
+          <h6>Location :{{user?.location}}</h6><br> -->
+
+          <a routerLink="/rewards">click here to see your rewardpoints</a>
+          <!-- <button mat-raised-button color="primary" (click)=openDialog()>Edit</button> -->
+        </table>
+        </div>
+        
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" (click)=openDialog()>Edit</button>
+        <button type="cancel" mat-raised-button color="primary" routerLink="/landing">Back</button>
+      </mat-card-actions>
+    
+      </mat-card>
+    </div>
+    </div>

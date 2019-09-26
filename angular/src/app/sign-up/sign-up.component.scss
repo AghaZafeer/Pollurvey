@@ -1,0 +1,66 @@
+.my-form {
+    min-width: 150px;
+    max-width: 200px;
+    width: 100%;
+}
+
+.flex-container
+{
+    height: 100vh;
+    width: 100%;
+    background: url("/assets/pictures/background5.jpg") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.Error{
+    color: red;
+    margin-top:0px;
+    margin-bottom:0px;
+}
+   
+  mat-card{
+      width: 20%;
+      align-content: center;
+      margin-top: 4cm;
+      height:auto;
+      min-width: 200px;
+      display: block;
+      margin-left:auto;
+      margin-right:auto;
+      padding:0.5cm;
+  }
+  mat-card-actions{
+      text-align: center;
+  }
+  mat-form-field
+  {
+    width:300px !important;
+    margin-top:0.2cm;
+  }
+  mat-divider{
+      width:3cm;
+  }
+  p{
+      margin-top: 1cm;
+  }
+  button{
+      margin-left:1.5cm;
+      margin-top:0.5cm;
+      width:6cm;
+      
+  }
+  .example-card{
+    width:10cm;
+    height:11cm;
+    min-width: 6cm;
+    box-shadow: 0 8px 8px -1px rgba(0,0,0,1), 
+    0 8px 8px 0 rgba(0,0,0,1), 
+    0 8px 8px 0 rgba(0,0,0,1);
+    opacity: 0.97;
+}
+mat-card-header{
+    text-align: center;
+}

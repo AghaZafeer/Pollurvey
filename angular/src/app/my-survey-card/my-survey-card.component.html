@@ -1,0 +1,83 @@
+<div class="a" fxLayout="row" fxLayout.col-lg="row">
+  <span class="spacer" fxLayout="column"
+    ><button class="btn" matTooltip="Create a survey" (click)="openDialog()">
+      +
+    </button></span
+  >
+  <mat-card class="card" *ngFor="let survey of surveyList">
+    <a (click)="preview(survey)">
+      <div class="draft" *ngIf="survey.status == 'Draft'">{{ survey.status }}</div>
+      <div class="draft2" *ngIf="survey.status == 'Open'">{{ survey.status }}</div>
+      <div class="image" *ngIf="survey.domain_type == 'Product'">
+        <img
+          mat-card-image
+          src="/assets/pictures/product3.jpg"
+          alt="Product Image"
+        />
+      </div>
+      <div class="image" *ngIf="survey.domain_type == 'Hospital'">
+        <img
+          mat-card-image
+          src="/assets/pictures/Hospital.webp"
+          alt="Hospital Image"
+        />
+      </div>
+      <mat-card-header>
+        <mat-card-title>{{ survey.name }}</mat-card-title>
+      </mat-card-header>
+    </a>
+    <mat-card-actions class="icon">
+      <button mat-icon-button (click)="preview(survey)">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="search icon"
+          >open_in_new</mat-icon
+        >
+      </button>
+      <button
+        mat-icon-button
+        (click)="editQuestions(survey)"
+        *ngIf="survey.status == 'Draft'"
+      >
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="search icon"
+          >edit</mat-icon
+        >
+      </button>
+      <button mat-icon-button (click)="deleteSurvey(survey)">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="search icon"
+          >delete</mat-icon
+        >
+      </button>
+    </mat-card-actions>
+    <div class="bottom">
+      <div class="responses">
+        <a routerLink="">
+          <mat-icon
+            class="example-icon"
+            aria-hidden="false"
+            aria-label="search icon"
+            matTooltip="No of respondants:{{survey.respondants}}"
+            > supervised_user_circle</mat-icon
+          >
+        </a>
+      </div>
+      <div class="analysis">
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="search icon"
+          (click)="analyze(survey)"
+          matTooltip="Analysis"
+          >assessment</mat-icon
+        >
+      </div>
+    </div>
+  </mat-card>
+</div>

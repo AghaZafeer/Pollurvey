@@ -1,0 +1,31 @@
+<div class="flex-container" fxLayout="row" fxFlex.lt-md="column">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Log in to pollurvey</mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="loginForm" name="login-form" #loginform="ngForm" (ngSubmit)="login(loginform.value)">
+      <mat-card-content>
+        <mat-form-field>
+          <input matInput [formControl]="emailFormControl" placeholder="Email" [(ngModel)]="email" name="email" required>
+          <mat-error *ngIf="emailFormControl.invalid">{{
+            getRequiredErrorMessage("email")
+          }}</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password" required
+          [formControl]="passwordFormControl"/>
+          <mat-error *ngIf="passwordFormControl.invalid">{{
+            getPasswordErrorMessage("password")
+          }}</mat-error>
+        </mat-form-field>
+        <p class="Error" *ngIf="NotAuthenticated">Incorrect email or password</p>
+ 
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button type="submit" color="primary" [disabled]="loginForm.invalid">Login</button>
+        <a href=signup()><p>Don't have an account ? Signup Now! 
+        </p></a>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</div>

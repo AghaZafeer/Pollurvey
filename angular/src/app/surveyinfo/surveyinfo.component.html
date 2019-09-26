@@ -1,0 +1,10 @@
+<div class="flex-container">
+  <div><a routerLink="/survey"><button mat-raised-button ><mat-icon>arrow_back</mat-icon></button></a>
+<h3 class="main">Preview</h3></div>
+<mat-card *ngFor="let question of questionList">
+     <h4>{{question.questionTag}}</h4>
+     <div *ngFor="let choice of question.choices">
+       <mat-radio-button class="choice-radio-button" value="{{choice}}">{{choice}}</mat-radio-button>
+     </div>
+   </mat-card>
+   </div>
